@@ -1,12 +1,10 @@
 #pragma once
 
+#include "math_types.h"
+
 namespace kphys {
 
     struct Shape {
-
-    };
-
-    struct Transform {
 
     };
 
