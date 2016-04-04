@@ -9,11 +9,29 @@ int main(int argc, char** argv) {
     const float fps = 60.f;
     const float dt = 1.f / fps;
     float accumulator = 0.f;
-    
+
+    sf::Clock clock;
+
+
+    float frameStart = clock.getElapsedTime().asSeconds();
+
     sf::RenderWindow App(sf::VideoMode(800, 600, 32), "Hello World - SFML");
 
     while (App.isOpen())
     {
+        float currentTime = clock.getElapsedTime().asSeconds();
+
+        accumulator += currentTime - frameStart;
+        frameStart = currentTime;
+
+        if (accumulator > 0.2f)
+            accumulator = 0.2f;
+
+        while (accumulator > dt) {
+            // update physics
+            accumulator -= dt;
+        }
+
         sf::Event Event;
         while (App.pollEvent(Event))
         {
