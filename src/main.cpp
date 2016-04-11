@@ -2,6 +2,7 @@
 
 #include "vec2.h"
 #include <SFML/Graphics.hpp>
+#include "physics_scene.h"
 
 int main(int argc, char** argv) {
     using namespace kphys;
@@ -9,8 +10,9 @@ int main(int argc, char** argv) {
     const float fps = 60.f;
     const float dt = 1.f / fps;
     float accumulator = 0.f;
-
-    sf::Clock clock;
+    PhysicsScene scene(dt, 10);
+    scene.run();
+/* sf::Clock clock;
 
 
     float frameStart = clock.getElapsedTime().asSeconds();
@@ -42,7 +44,7 @@ int main(int argc, char** argv) {
         App.clear(sf::Color(0, 0, 255));
 
         App.display();
-    }
+    }*/
        
     return 0;
 }
