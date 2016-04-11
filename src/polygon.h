@@ -14,6 +14,10 @@ namespace kphys {
         Vec2 m_vertices[MaxVertexCount];
         Vec2 m_normals[MaxVertexCount];
 
+        PolygonShape() {
+            m_u = { 1.f, 0.f, 0.f, 1.f };
+        }
+
         void setAsBox(float halfWidth, float halfHeight) {
             m_vertexCount = 4;
             m_vertices[0] = vec2(-halfWidth, -halfHeight);
@@ -41,13 +45,17 @@ namespace kphys {
             return bestVertex;
         }
 
-        void draw(sf::RenderWindow& window) {
+        void draw(sf::RenderWindow& window) override {
+            static float inc = 0.01f;
+            setRotation(m_u, inc += 0.001f);
             sf::ConvexShape poly;
             poly.setPointCount(m_vertexCount);
             for (uint32_t i = 0; i < m_vertexCount; ++i) {
                 Vec2 v = m_body->m_position + m_u * m_vertices[i];
                 poly.setPoint(i, sf::Vector2f(v.x, v.y));
             }
+            poly.setFillColor(sf::Color::Red);
+            window.draw(poly);
         }
     };
 

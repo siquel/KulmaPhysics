@@ -3,6 +3,7 @@
 #include "vec2.h"
 #include <SFML/Graphics.hpp>
 #include "physics_scene.h"
+#include "polygon.h"
 
 int main(int argc, char** argv) {
     using namespace kphys;
@@ -11,6 +12,12 @@ int main(int argc, char** argv) {
     const float dt = 1.f / fps;
     float accumulator = 0.f;
     PhysicsScene scene(dt, 10);
+
+    PolygonShape box;
+    box.setAsBox(16.f, 16.f);
+        
+    scene.add(&box, 100.f, 100.f);
+
     scene.run();
 /* sf::Clock clock;
 

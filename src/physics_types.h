@@ -12,6 +12,8 @@ namespace kphys {
             Count
         };
 
+        virtual void draw(sf::RenderWindow&) = 0;
+
         Body* m_body;
         Mat2x2 m_u;
     };
@@ -26,6 +28,13 @@ namespace kphys {
     struct Body {
         Shape* m_shape;
         Vec2 m_position;
-        Vec2 m_linearVelocity;
+        Vec2 m_velocity;
+
+        Body(Shape* s, float x, float y)
+            : m_shape(s) {
+            m_position = Vec2{ x, y };
+            m_velocity = Vec2{ 0.f, 0.f };
+            m_shape->m_body = this;
+        }
     };
 }
