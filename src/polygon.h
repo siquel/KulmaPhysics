@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <float.h>
 #include <SFML/Graphics.hpp>
+#include "mat2x2.h"
 
 namespace kphys {
     
