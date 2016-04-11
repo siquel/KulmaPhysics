@@ -70,11 +70,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\physics_scene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\mat2x2.h" />
     <ClInclude Include="src\math_types.h" />
     <ClInclude Include="src\math_util.h" />
+    <ClInclude Include="src\physics_scene.h" />
     <ClInclude Include="src\physics_types.h" />
+    <ClInclude Include="src\polygon.h" />
     <ClInclude Include="src\vec2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
