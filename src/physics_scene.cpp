@@ -16,7 +16,18 @@ namespace kphys {
     }
 
     void PhysicsScene::step() {
+        m_contacts.clear();
 
+        for (size_t i = 0; i < m_bodies.size(); ++i) {
+            Body* a = m_bodies[i];
+            for (size_t j = i + i; j < m_bodies.size(); ++j) {
+                Body* b = m_bodies[j];
+                // static objs
+                if (a->m_invMass == 0 && b->m_invMass == 0) continue;
+
+                // todo manifolds
+            }
+        }
     }
 
     void PhysicsScene::render() {

@@ -94,4 +94,16 @@ namespace kphys {
     inline const float* toPointer(const Vec2& a) {
         return &a.x;
     }
+
+    inline Vec2 cross(const Vec2& v, float a) {
+        return Vec2{a *v[1], -a * v[0] };
+    }
+
+    inline Vec2 cross(float a, const Vec2& v) {
+        return Vec2{ a *v[1], -a * v[0] };
+    }
+
+    inline float cross(const Vec2& a, const Vec2& b) {
+        return a[0] * b[1] - a[1] * b[0];
+    }
 }

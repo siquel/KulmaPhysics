@@ -44,5 +44,8 @@
     <ClInclude Include="src\mat2x2.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\manifold.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -46,8 +46,6 @@ namespace kphys {
         }
 
         void draw(sf::RenderWindow& window) override {
-            static float inc = 0.01f;
-            setRotation(m_u, inc += 0.001f);
             sf::ConvexShape poly;
             poly.setPointCount(m_vertexCount);
             for (uint32_t i = 0; i < m_vertexCount; ++i) {
@@ -56,6 +54,52 @@ namespace kphys {
             }
             poly.setFillColor(sf::Color::Red);
             window.draw(poly);
+        }
+
+        void setOrient(float radians) override {
+            setRotation(m_u, radians);
+        }
+
+        void ComputeMass(float density)
+        {
+            // Calculate centroid and moment of interia
+            Vec2 c{ 0.0f, 0.0f }; // centroid
+            float area = 0.0f;
+            float I = 0.0f;
+            const float k_inv3 = 1.0f / 3.0f;
+
+            for (uint32_t i1 = 0; i1 < m_vertexCount; ++i1)
+            {
+                // Triangle vertices, third vertex implied as (0, 0)
+                Vec2 p1(m_vertices[i1]);
+                uint32_t i2 = i1 + 1 < m_vertexCount ? i1 + 1 : 0;
+                Vec2 p2(m_vertices[i2]);
+
+                float D = cross(p1, p2);
+                float triangleArea = 0.5f * D;
+
+                area += triangleArea;
+
+                // Use area to weight the centroid average, not just vertex position
+                c += triangleArea * k_inv3 * (p1 + p2);
+
+                float intx2 = p1.x * p1.x + p2.x * p1.x + p2.x * p2.x;
+                float inty2 = p1.y * p1.y + p2.y * p1.y + p2.y * p2.y;
+                I += (0.25f * k_inv3 * D) * (intx2 + inty2);
+            }
+
+            c *= 1.0f / area;
+
+            // Translate vertices to centroid (make the centroid (0, 0)
+            // for the polygon in model space)
+            // Not floatly necessary, but I like doing this anyway
+            for (uint32_t i = 0; i < m_vertexCount; ++i)
+                m_vertices[i] -= c;
+
+            m_body->m_mass = density * area;
+            m_body->m_invMass = (m_body->m_mass) ? 1.0f / m_body->m_mass : 0.0f;
+            m_body->m_inertia = I * density;
+            m_body->m_inverseInertia = m_body->m_inertia ? 1.0f / m_body->m_inertia : 0.0f;
         }
     };
 

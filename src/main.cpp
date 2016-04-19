@@ -5,6 +5,7 @@
 #include "physics_scene.h"
 #include "polygon.h"
 
+
 int main(int argc, char** argv) {
     using namespace kphys;
     
@@ -15,7 +16,7 @@ int main(int argc, char** argv) {
 
     PolygonShape box;
     box.setAsBox(16.f, 16.f);
-        
+    box.setOrient(radians(45.f));
     scene.add(&box, 100.f, 100.f);
 
     scene.run();
