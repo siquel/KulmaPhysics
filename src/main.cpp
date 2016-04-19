@@ -15,9 +15,13 @@ int main(int argc, char** argv) {
     PhysicsScene scene(dt, 10);
 
     PolygonShape box;
-    box.setAsBox(16.f, 16.f);
-    box.setOrient(radians(45.f));
+    box.setAsBox(32.f, 32.f);
     scene.add(&box, 100.f, 100.f);
+
+    PolygonShape ground;
+    ground.setAsBox(1280 / 2, 50);
+    Body* groundbody = scene.add(&ground, 1280 / 2, 720 - 50);
+    groundbody->setStatic();
 
     scene.run();
 /* sf::Clock clock;
