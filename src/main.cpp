@@ -23,7 +23,31 @@ int main(int argc, char** argv) {
     Body* groundbody = scene.add(&ground, 1280 / 2, 720 - 50);
     groundbody->setStatic();
 
-    scene.run();
+    sf::Event e;
+
+    sf::Clock clock;
+    float frameStart = clock.getElapsedTime().asSeconds();
+
+    while (scene.m_window.isOpen()) {
+        while (scene.m_window.pollEvent(e)) {
+            if (e.type == sf::Event::Closed)
+                scene.m_window.close();
+        }
+
+        float currentTime = clock.getElapsedTime().asSeconds();
+        accumulator += currentTime - frameStart;
+        frameStart = currentTime;
+
+        if (accumulator > 0.2f)
+            accumulator = 0.2f;
+
+        while (accumulator > dt) {
+            scene.step();
+            accumulator -= dt;
+        }
+
+        scene.render();
+    }
 /* sf::Clock clock;
 
 

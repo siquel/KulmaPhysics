@@ -20,19 +20,6 @@ namespace kphys {
         integrateForces(b, dt);
     }
 
-    void PhysicsScene::run() {
-        while (m_window.isOpen()) {
-            sf::Event Event;
-            while (m_window.pollEvent(Event))
-            {
-                if (Event.type == sf::Event::Closed)
-                    m_window.close();
-            }
-            step();
-            render();
-        }
-    }
-
     void PhysicsScene::step() {
         m_contacts.clear();
 
