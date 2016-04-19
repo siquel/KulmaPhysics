@@ -2,6 +2,24 @@
 
 namespace kphys {
 
+    Vec2 g_gravity{ 0.f, 9.81f };
+
+    void integrateForces(Body* body, float dt) {
+        // static obj
+        if (body->m_invMass == 0.f) return;
+
+        body->m_velocity += (body->m_force * body->m_invMass + g_gravity) * (0.5f * dt);
+    }
+
+    void integrateVelocity(Body* b, float dt) {
+        if (b->m_invMass == 0.f) return;
+
+        b->m_position += b->m_velocity * dt;
+        b->m_orientRadians += b->m_angularVelocity * dt;
+        b->setOrient(b->m_orientRadians);
+        integrateForces(b, dt);
+    }
+
     void PhysicsScene::run() {
         while (m_window.isOpen()) {
             sf::Event Event;
@@ -27,6 +45,14 @@ namespace kphys {
 
                 // todo manifolds
             }
+        }
+
+        for (auto b : m_bodies) {
+            integrateForces(b, m_dt);
+        }
+
+        for (auto b : m_bodies) {
+            integrateVelocity(b, m_dt);
         }
     }
 
