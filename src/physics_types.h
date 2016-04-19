@@ -34,15 +34,13 @@ namespace kphys {
 
         float m_angularVelocity;
 
-        float m_staticFriction;
-        float m_dynamicFriction;
         float m_restitution;
 
         float m_orientRadians;
 
         Body(Shape* s, float x, float y)
             : m_shape(s), m_angularVelocity(0), 
-            m_orientRadians(0), m_staticFriction(0.5f), m_dynamicFriction(0.3f),
+            m_orientRadians(0),
             m_restitution(0.2f) {
             m_position = Vec2{ x, y };
             m_force = Vec2{ 0.f, 0.f };
