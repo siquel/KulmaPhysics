@@ -18,9 +18,7 @@ namespace kphys {
         PhysicsScene(float delta, uint32_t iterations)
             : m_dt(delta), m_iterations(iterations),
             m_window(sf::VideoMode(1280, 720, 32), "PhysicsShit") {
-            //m_window.setFramerateLimit(60);
         }
-        void run();
         void step();
         void render();
         Body* add(Shape* shape, float x, float y);
