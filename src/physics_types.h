@@ -15,6 +15,7 @@ namespace kphys {
 
         virtual void draw(sf::RenderWindow&) = 0;
         virtual void setOrient(float radians) = 0;
+        virtual void computeMass(float density) = 0;
         Body* m_body;
         Mat2x2 m_u;
     };
@@ -47,6 +48,7 @@ namespace kphys {
             m_force = Vec2{ 0.f, 0.f };
             m_velocity = Vec2{ 0.f, 0.f };
             m_shape->m_body = this;
+            m_shape->computeMass(1.f);
         }
 
         void applyForce(const Vec2& force) {

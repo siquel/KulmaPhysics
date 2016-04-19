@@ -60,7 +60,7 @@ namespace kphys {
             setRotation(m_u, radians);
         }
 
-        void ComputeMass(float density)
+        void computeMass(float density) override
         {
             // Calculate centroid and moment of interia
             Vec2 c{ 0.0f, 0.0f }; // centroid

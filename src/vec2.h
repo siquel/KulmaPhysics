@@ -17,6 +17,7 @@ namespace kphys {
     inline Vec2& operator-=(Vec2& a, const Vec2& b){
         a.x -= b.x;
         a.y -= b.y;
+        return a;
     }
 
     inline Vec2& operator*=(Vec2& a, const Vec2& b) {
