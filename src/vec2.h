@@ -101,7 +101,7 @@ namespace kphys {
     }
 
     inline Vec2 cross(float a, const Vec2& v) {
-        return Vec2{ a *v[1], -a * v[0] };
+        return Vec2{ -a *v[1], a * v[0] };
     }
 
     inline float cross(const Vec2& a, const Vec2& b) {
