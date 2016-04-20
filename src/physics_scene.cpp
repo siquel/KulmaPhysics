@@ -31,6 +31,12 @@ namespace kphys {
                 if (a->m_invMass == 0 && b->m_invMass == 0) continue;
 
                 // todo manifolds
+                Manifold m(a, b);
+                m.solve();
+                // if objects collided
+                if (m.m_contactCount) {
+                    m_contacts.emplace_back(m);
+                }
             }
         }
 
@@ -38,8 +44,24 @@ namespace kphys {
             integrateForces(b, m_dt);
         }
 
+        for (uint32_t i = 0; i < m_contacts.size(); ++i) {
+            m_contacts[i].initialize();
+        }
+
+        for (uint32_t j = 0; j < m_iterations; ++j) {
+            for (uint32_t i = 0 ; i < m_contacts.size(); ++i) {
+                // solve collisions
+            }
+        }
+
         for (auto b : m_bodies) {
             integrateVelocity(b, m_dt);
+        }
+
+        // clear forces
+        for (auto b : m_bodies) {
+            b->m_force = { 0.f, 0.f };
+            //b->torque = 0;
         }
     }
 

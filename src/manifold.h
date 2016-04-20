@@ -9,7 +9,7 @@ namespace kphys {
     struct Manifold {
         
         Manifold(Body* a, Body* b) 
-            : m_a(a), m_b(b) {
+            : m_a(a), m_b(b), m_contactCount(0), m_e(0), m_penetration(0) {
 
         }
 
@@ -25,7 +25,7 @@ namespace kphys {
         float m_e;
 
         void solve() {
-            
+            polygonToPolygon(this, m_a, m_b);
         }
 
         void initialize() {
