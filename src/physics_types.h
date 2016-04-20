@@ -2,6 +2,7 @@
 
 #include "math_types.h"
 #include "vec2.h"
+#include "SFML/Graphics/RenderWindow.hpp"
 
 namespace kphys {
 

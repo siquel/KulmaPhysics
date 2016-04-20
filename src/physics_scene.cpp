@@ -1,5 +1,5 @@
 #include "physics_scene.h"
-
+#include "config.h"
 namespace kphys {
 
     Vec2 g_gravity{ 0.f, 9.81f };

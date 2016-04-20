@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -13,6 +13,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{44E56A4F-842D-40C2-A0E9-F695B10A90C4}</ProjectGuid>
     <RootNamespace>KulmaPhysics</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -69,10 +70,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\collision.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\physics_scene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\collision.h" />
+    <ClInclude Include="src\config.h" />
     <ClInclude Include="src\manifold.h" />
     <ClInclude Include="src\mat2x2.h" />
     <ClInclude Include="src\math_types.h" />
