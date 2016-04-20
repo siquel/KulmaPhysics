@@ -81,6 +81,14 @@ namespace kphys {
             }
         }
 
+        void positionalCorrection() {
+            const float k_slop = 0.05f; // Penetration allowance
+            const float percent = 0.4f; // Penetration percentage to correct
+            Vec2 correction = (std::max(m_penetration - k_slop, 0.0f) / (m_a->m_invMass + m_b->m_invMass)) * m_normal * percent;
+            m_a->m_position -= correction * m_a->m_invMass;
+            m_b->m_position += correction * m_b->m_invMass;
+        }
+
 
     };
 }

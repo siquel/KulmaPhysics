@@ -5,18 +5,25 @@
 #include "physics_scene.h"
 #include "polygon.h"
 
-
 int main(int argc, char** argv) {
     using namespace kphys;
     
     const float fps = 60.f;
     const float dt = 1.f / fps;
     float accumulator = 0.f;
-    PhysicsScene scene(dt, 10);
+    PhysicsScene scene(dt, 5);
 
-    PolygonShape box;
-    box.setAsBox(32.f, 32.f);
-    scene.add(&box, 100.f, 100.f);
+    const uint32_t boxCount = 10;
+
+    std::vector<PolygonShape> boxes;
+    boxes.resize(boxCount);
+
+    for (uint32_t i = 0; i < boxCount; ++i) {
+        boxes[i].setAsBox(32.f, 32.f);
+        Body* b = scene.add(&boxes[i], 100.f + 70.f * i, 100.f + 50.f * i);
+        b->setOrient(radians(45));
+    }
+    
 
     PolygonShape ground;
     ground.setAsBox(1280 / 2, 50);

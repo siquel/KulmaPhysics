@@ -2,7 +2,7 @@
 #include "config.h"
 namespace kphys {
 
-    Vec2 g_gravity{ 0.f, 9.81f };
+    Vec2 g_gravity{ 0.f, 9.81f * 4 };
 
     void integrateForces(Body* body, float dt) {
         // static obj
@@ -54,10 +54,14 @@ namespace kphys {
             }
         }
 
-        for (auto b : m_bodies) {
+        for (auto* b : m_bodies) {
             integrateVelocity(b, m_dt);
         }
 
+        for (auto& contact : m_contacts) {
+            contact.positionalCorrection();
+        }
+        
         // clear forces
         for (auto b : m_bodies) {
             b->m_force = { 0.f, 0.f };

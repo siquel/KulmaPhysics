@@ -11,11 +11,11 @@
             uint32_t bestIndex;
 
             for (uint32_t i = 0; i < a->m_vertexCount; ++i) {
-                Vec2& n = a->m_normals[i];
+                Vec2 n = a->m_normals[i];
                 Vec2 nw = a->m_u * n;
 
                 // transpose
-                Mat2x2 transpose = Mat2x2{ a->m_u[0][0], a->m_u[1][0], a->m_u[0][1], a->m_u[1][1] };
+                Mat2x2 transpose = Mat2x2{ b->m_u[0][0], b->m_u[1][0], b->m_u[0][1], b->m_u[1][1] };
                 // transform to b model space
                 n = transpose * nw;
 
