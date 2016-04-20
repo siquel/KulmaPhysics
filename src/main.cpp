@@ -11,7 +11,7 @@ int main(int argc, char** argv) {
     const float fps = 60.f;
     const float dt = 1.f / fps;
     float accumulator = 0.f;
-    PhysicsScene scene(dt, 1);
+    PhysicsScene scene(dt, 10);
 
     const uint32_t boxCount = 10;
 
@@ -22,7 +22,7 @@ int main(int argc, char** argv) {
         boxes[i].setAsBox(32.f, 32.f);
         Body* b = scene.add(&boxes[i], 100.f + 70.f * i, 100.f);
         b->setOrient(radians(0));
-        b->m_restitution = 0.5f;
+        b->m_restitution = 0.f;
         // mass 1 - 10
         b->m_shape->computeMass(2);
     }
