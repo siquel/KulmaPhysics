@@ -9,6 +9,7 @@ namespace kphys {
         if (body->m_invMass == 0.f) return;
 
         body->m_velocity += (body->m_force * body->m_invMass + g_gravity) * (0.5f * dt);
+        body->m_angularVelocity += body->m_torque * body->m_inverseInertia * (dt / 2.0f);
     }
 
     void integrateVelocity(Body* b, float dt) {
@@ -65,7 +66,7 @@ namespace kphys {
         // clear forces
         for (auto b : m_bodies) {
             b->m_force = { 0.f, 0.f };
-            //b->torque = 0;
+            b->m_torque = 0;
         }
     }
 

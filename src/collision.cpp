@@ -164,7 +164,7 @@
             separation = dot(refFaceNormal, incidentFace[1]) - refC;
             if (separation <= 0.f) {
                 m->m_contacts[cp] = incidentFace[1];
-                m->m_penetration += -separation;
+                m->m_penetration -= separation;
                 ++cp;
                 // avg
                 m->m_penetration /= float(cp);

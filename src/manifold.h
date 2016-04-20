@@ -49,7 +49,7 @@ namespace kphys {
         }
 
         void applyImpulse() {
-            if ((m_a->m_invMass + m_b->m_invMass) < 0.001f) {
+            if ((m_a->m_invMass + m_b->m_invMass) < 0.0001f) {
                 m_a->m_velocity = { 0, 0 };
                 m_b->m_velocity = { 0, 0 };
                 return;
@@ -60,14 +60,16 @@ namespace kphys {
                 Vec2 ra = m_contacts[i] - m_a->m_position;
                 Vec2 rb = m_contacts[i] - m_b->m_position;
 
-                Vec2 rv = m_b->m_velocity + cross(m_b->m_angularVelocity, rb) - m_a->m_velocity - cross(m_a->m_orientRadians, ra);
+                Vec2 rv = m_b->m_velocity + cross(m_b->m_angularVelocity, rb) - m_a->m_velocity - cross(m_a->m_angularVelocity, ra);
                 float contactvel = dot(rv, m_normal);
                 // velocities are separating
                 if (contactvel > 0) return;
 
                 float raCrossN = cross(ra, m_normal);
                 float rbCrossN = cross(rb, m_normal);
-                float invMassSum = m_a->m_invMass + m_b->m_invMass + raCrossN * raCrossN * m_a->m_inverseInertia + rbCrossN * rbCrossN * m_b->m_inverseInertia;
+                float invMassSum = m_a->m_invMass + m_b->m_invMass;
+                invMassSum += raCrossN * raCrossN * m_a->m_inverseInertia;
+                invMassSum += rbCrossN * rbCrossN * m_b->m_inverseInertia;
 
                 // impulse scalar
                 float j = -(1.f + m_e) * contactvel;

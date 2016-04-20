@@ -39,8 +39,10 @@ namespace kphys {
 
         float m_orientRadians;
 
+        float m_torque;
+
         Body(Shape* s, float x, float y)
-            : m_shape(s), m_angularVelocity(0), 
+            : m_shape(s), m_angularVelocity(0), m_torque(0), 
             m_orientRadians(0),
             m_restitution(0.2f) {
             m_position = Vec2{ x, y };

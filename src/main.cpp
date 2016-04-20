@@ -11,17 +11,20 @@ int main(int argc, char** argv) {
     const float fps = 60.f;
     const float dt = 1.f / fps;
     float accumulator = 0.f;
-    PhysicsScene scene(dt, 5);
+    PhysicsScene scene(dt, 1);
 
     const uint32_t boxCount = 10;
 
     std::vector<PolygonShape> boxes;
     boxes.resize(boxCount);
-
+    srand(time(NULL));
     for (uint32_t i = 0; i < boxCount; ++i) {
         boxes[i].setAsBox(32.f, 32.f);
-        Body* b = scene.add(&boxes[i], 100.f + 70.f * i, 100.f + 50.f * i);
-        b->setOrient(radians(45));
+        Body* b = scene.add(&boxes[i], 100.f + 70.f * i, 100.f);
+        b->setOrient(radians(0));
+        b->m_restitution = 0.f;
+        // mass 1 - 10
+        b->m_shape->computeMass(2);
     }
     
 
@@ -30,6 +33,12 @@ int main(int argc, char** argv) {
     Body* groundbody = scene.add(&ground, 1280 / 2, 720 - 50);
     groundbody->setStatic();
 
+    PolygonShape juttu;
+    juttu.setAsBox(200, 50);
+    Body* juttub = scene.add(&juttu, 300, 400);
+    juttub->setOrient(radians(70));
+    juttub->m_restitution = 0;
+    juttub->setStatic();
     sf::Event e;
 
     sf::Clock clock;
