@@ -47,5 +47,40 @@ namespace kphys {
                 }
             }
         }
+
+        void applyImpulse() {
+            if ((m_a->m_invMass + m_b->m_invMass) < 0.001f) {
+                m_a->m_velocity = { 0, 0 };
+                m_b->m_velocity = { 0, 0 };
+                return;
+            }
+
+            for (uint32_t i = 0; i < m_contactCount; ++i) {
+                // calc relative velocities
+                Vec2 ra = m_contacts[i] - m_a->m_position;
+                Vec2 rb = m_contacts[i] - m_b->m_position;
+
+                Vec2 rv = m_b->m_velocity + cross(m_b->m_angularVelocity, rb) - m_a->m_velocity - cross(m_a->m_orientRadians, ra);
+                float contactvel = dot(rv, m_normal);
+                // velocities are separating
+                if (contactvel > 0) return;
+
+                float raCrossN = cross(ra, m_normal);
+                float rbCrossN = cross(rb, m_normal);
+                float invMassSum = m_a->m_invMass + m_b->m_invMass + raCrossN * raCrossN * m_a->m_inverseInertia + rbCrossN * rbCrossN * m_b->m_inverseInertia;
+
+                // impulse scalar
+                float j = -(1.f + m_e) * contactvel;
+                j /= invMassSum;
+                j /= float(m_contactCount);
+
+                // apply impulse
+                Vec2 impulse = m_normal * j;
+                m_a->applyImpulse(-impulse, ra);
+                m_b->applyImpulse(impulse, rb);
+            }
+        }
+
+
     };
 }

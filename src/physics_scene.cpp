@@ -49,8 +49,8 @@ namespace kphys {
         }
 
         for (uint32_t j = 0; j < m_iterations; ++j) {
-            for (uint32_t i = 0 ; i < m_contacts.size(); ++i) {
-                // solve collisions
+            for (auto& contact : m_contacts) {
+                contact.applyImpulse();
             }
         }
 
